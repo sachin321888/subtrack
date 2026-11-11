@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Annotated
 
 import typer
 from rich.console import Console
@@ -16,7 +17,9 @@ def main() -> None:
 
 
 @app.command()
-def show(file: Path = typer.Argument(..., exists=True, help="Bank statement CSV")):
+def show(
+    file: Annotated[Path, typer.Argument(exists=True, help="Bank statement CSV")],
+) -> None:
     """Print all transactions found in a CSV file."""
     table = Table(title=f"Transactions in {file.name}")
     table.add_column("Date")
